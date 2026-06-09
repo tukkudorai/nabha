@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AFCAT 2 2026 Interactive Tracker</title>
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --accent: #38bdf8;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --success: #22c55e;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+        }
+
+        h1 { margin-bottom: 5px; color: var(--accent); }
+        h2 { border-bottom: 1px solid var(--border); padding-bottom: 5px; margin-top: 40px; color: var(--accent); }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--bg-secondary);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .stat-value { font-size: 1.5rem; font-weight: bold; color: var(--accent); }
+
+        .progress-container {
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border);
+        }
+
+        .progress-bar {
+            background: var(--border);
+            height: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            background: var(--success);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th { background-color: #111827; }
+
+        .day-block {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .day-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        .task-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        .task-item input {
+            margin-right: 10px;
+            margin-top: 5px;
+        }
+
+        .task-item.completed span {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        .input-score {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 5px;
+            border-radius: 4px;
+            width: 80px;
+        }
+
+        blockquote {
+            border-left: 4px solid var(--accent);
+            margin: 1.5em 10px;
+            padding: 0.5em 10px;
+            background: #111827;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>AFCAT 2 2026 — DAILY PREP CHECKLIST</h1>
+        <p>Exam: Aug 9 | Days Left: 61 | Candidate: IT Professional</p>
+    </header>
+
+    <div class="progress-container">
+        <strong>Overall Preparation Progress: </strong><span id="progress-text">0%</span>
+        <div class="progress-bar">
+            <div id="progress-fill" class="progress-fill"></div>
+        </div>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div>Official Cutoff</div>
+            <div class="stat-value">110/300</div>
+        </div>
+        <div class="stat-card">
+            <div>Your Target (+20%)</div>
+            <div class="stat-value">132/300</div>
+        </div>
+        <div class="stat-card">
+            <div>Target Strategy</div>
+            <div class="stat-value">44 / 100 Qs</div>
+        </div>
+    </div>
+
+    <blockquote>Rule #1: Skip &gt; Guess. −1 kills your score.</blockquote>
+
+    <h2>EXAM STRUCTURE</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Section</th>
+                <th>Qs</th>
+                <th>Max Marks</th>
+                <th>Your Target</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>Reasoning + Military Aptitude</td><td>32</td><td>96</td><td>15 correct, skip doubtful</td></tr>
+            <tr><td>Verbal Ability</td><td>25</td><td>75</td><td>14 correct, skip doubtful</td></tr>
+            <tr><td>General Awareness</td><td>25</td><td>75</td><td>12 correct, skip doubtful</td></tr>
+            <tr><td>Numerical Ability</td><td>18</td><td>54</td><td>9 correct, skip doubtful</td></tr>
+        </tbody>
+    </table>
+
+    <h2>DAILY SCHEDULE TEMPLATE</h2>
+    <div class="day-block">
+        <div class="day-title">Weekdays (4 hrs)</div>
+        <ul>
+            <li>6:00–7:00 AM → Reasoning or Numerical (1 hr)</li>
+            <li>7:30–8:00 AM → Current affairs headlines (30 min)</li>
+            <li>8:00–10:00 PM → Verbal + GA (2 hrs)</li>
+            <li>10:00–10:30 PM → 20 practice Qs + review mistakes (30 min)</li>
+        </ul>
+    </div>
+    <div class="day-block">
+        <div class="day-title">Weekends (7 hrs)</div>
+        <ul>
+            <li>6:00–9:00 AM → Deep study / full mock test (3 hrs)</li>
+            <li>9:30–11:00 AM → Mock analysis / error review (1.5 hrs)</li>
+            <li>4:00–6:00 PM → Revision + weak area drill (2 hrs)</li>
+            <li>8:00–8:30 PM → Current affairs notes (30 min)</li>
+        </ul>
+    </div>
+
+    <h2>PHASE 1 — FOUNDATION (Week 1–2: Jun 9–22)</h2>
+    
+    <div class="day-block">
+        <div class="day-title">Mon Jun 9</div>
+        <label class="task-item"><input type="checkbox" id="t1"><span>Take 1 full AFCAT free mock test (Testbook / PW)</span></label>
+        <label class="task-item"><input type="checkbox" id="t2"><span>Note section-wise score — this is your baseline</span></label>
+        <label class="task-item"><input type="checkbox" id="t3"><span>Identify your 2 weakest and 2 strongest sections</span></label>
+        <label class="task-item"><input type="checkbox" id="t4"><span>Download AFCAT PYQs 2022–2025</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Tue Jun 10</div>
+        <label class="task-item"><input type="checkbox" id="t5"><span>Analyze mock — which question types did you miss?</span></label>
+        <label class="task-item"><input type="checkbox" id="t6"><span>Verbal: 20 synonyms + antonyms practice</span></label>
+        <label class="task-item"><input type="checkbox" id="t7"><span>Reasoning: 25 series completion Qs</span></label>
+        <label class="task-item"><input type="checkbox" id="t8"><span>Get: R.S. Aggarwal (Reasoning) + Objective English book</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Wed Jun 11</div>
+        <label class="task-item"><input type="checkbox" id="t9"><span>Reasoning: Analogies — 25 Qs</span></label>
+        <label class="task-item"><input type="checkbox" id="t10"><span>Verbal: Error detection — 20 sentences</span></label>
+        <label class="task-item"><input type="checkbox" id="t11"><span>Numerical: Percentages + fractions — 20 Qs</span></label>
+        <label class="task-item"><input type="checkbox" id="t12"><span>Current affairs: Read PIB summary / The Hindu defence section</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Thu Jun 12</div>
+        <label class="task-item"><input type="checkbox" id="t13"><span>Reasoning: Coding-decoding — 25 Qs</span></label>
+        <label class="task-item"><input type="checkbox" id="t14"><span>Verbal: Sentence completion — 25 Qs</span></label>
+        <label class="task-item"><input type="checkbox" id="t15"><span>Numerical: Ratio & proportion — 20 Qs</span></label>
+        <label class="task-item"><input type="checkbox" id="t16"><span>Current affairs: 30 min defence news only</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Fri Jun 13</div>
+        <label class="task-item"><input type="checkbox" id="t17"><span>Reasoning: Direction sense + clock/calendar — 20 Qs each</span></label>
+        <label class="task-item"><input type="checkbox" id="t18"><span>GA: IAF basics — aircraft types, commands, key bases</span></label>
+        <label class="task-item"><input type="checkbox" id="t19"><span>Verbal: Fill in the blanks — 25 Qs</span></label>
+        <label class="task-item"><input type="checkbox" id="t20"><span>Review all week notes (30 min)</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Sat Jun 14</div>
+        <label class="task-item"><input type="checkbox" id="t21"><span>AFCAT PYQ 2024 — full paper, strict 2-hr timer</span></label>
+        <label class="task-item"><input type="checkbox" id="t22"><span>Score and log section-wise marks</span></label>
+        <label class="task-item"><input type="checkbox" id="t23"><span>Deep analysis: note every wrong answer + reason</span></label>
+        <label class="task-item"><input type="checkbox" id="t24"><span>Spatial reasoning intro — 2D/3D figures (1 hr)</span></label>
+        <label class="task-item"><input type="checkbox" id="t25"><span>Current affairs 30 min</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Sun Jun 15</div>
+        <label class="task-item"><input type="checkbox" id="t26"><span>GA: Indian Geography — states, capitals, rivers, mountain ranges (2 hrs)</span></label>
+        <label class="task-item"><input type="checkbox" id="t27"><span>Numerical: Average + Simple Interest — 30 Qs (1.5 hrs)</span></label>
+        <label class="task-item"><input type="checkbox" id="t28"><span>Vocabulary: 60 new words with meanings + usage (1.5 hrs)</span></label>
+        <label class="task-item"><input type="checkbox" id="t29"><span>Spatial reasoning: figure classification — 20 Qs (1 hr)</span></label>
+        <label class="task-item"><input type="checkbox" id="t30"><span>Current affairs + week summary notes (1 hr)</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Mon Jun 16</div>
+        <label class="task-item"><input type="checkbox" id="t31"><span>Reasoning: Blood relations — 25 Qs</span></label>
+        <label class="task-item"><input type="checkbox" id="t32"><span>Verbal: Idioms and phrases — 30 phrases memorized</span></label>
+        <label class="task-item"><input type="checkbox" id="t33"><span>GA: Ancient Indian history — key events timeline</span></label>
+        <label class="task-item"><input type="checkbox" id="t34"><span>Current affairs daily</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Tue Jun 17</div>
+        <label class="task-item"><input type="checkbox" id="t35"><span>Reasoning: Syllogism — 25 Qs</span></label>
+        <label class="task-item"><input type="checkbox" id="t36"><span>Verbal: Reading comprehension — 2 passages, 10 Qs each</span></label>
+        <label class="task-item"><input type="checkbox" id="t37"><span>GA: Medieval + Modern history — key events</span></label>
+        <label class="task-item"><input type="checkbox" id="t38"><span>Numerical: Profit & loss — 20 Qs</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Wed Jun 18</div>
+        <label class="task-item"><input type="checkbox" id="t39"><span>Reasoning: Number series + letter series — 40 Qs</span></label>
+        <label class="task-item"><input type="checkbox" id="t40"><span>Verbal: Cloze test — 2 passages</span></label>
+        <label class="task-item"><input type="checkbox" id="t41"><span>GA: Indian Polity — Constitution basics, key articles, amendments</span></label>
+        <label class="task-item"><input type="checkbox" id="t42"><span>Numerical: Time + work — 20 Qs</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Thu Jun 19</div>
+        <label class="task-item"><input type="checkbox" id="t43"><span>Reasoning: Venn diagrams + statement-assumptions — 20 Qs each</span></label>
+        <label class="task-item"><input type="checkbox" id="t44"><span>Verbal: Sentence rearrangement — 20 Qs</span></label>
+        <label class="task-item"><input type="checkbox" id="t45"><span>GA: Awards + honours 2025–26 — memorize list</span></label>
+        <label class="task-item"><input type="checkbox" id="t46"><span>Current affairs: Defence news last 2 months</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Fri Jun 20</div>
+        <label class="task-item"><input type="checkbox" id="t47"><span>Reasoning: Mirror image + water image — 20 Qs</span></label>
+        <label class="task-item"><input type="checkbox" id="t48"><span>Verbal: One word substitution — 30 words</span></label>
+        <label class="task-item"><input type="checkbox" id="t49"><span>GA: Science basics — Physics laws, inventions, units</span></label>
+        <label class="task-item"><input type="checkbox" id="t50"><span>Review all week 2 notes (30 min)</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Sat Jun 21</div>
+        <label class="task-item"><input type="checkbox" id="t51"><span>AFCAT PYQ 2023 — full paper, strict 2-hr timer</span></label>
+        <label class="task-item"><input type="checkbox" id="t52"><span>Score and compare with Week 1 mock — check improvement</span></label>
+        <label class="task-item"><input type="checkbox" id="t53"><span>Deep analysis: error log update (every miss documented)</span></label>
+        <label class="task-item"><input type="checkbox" id="t54"><span>Spatial reasoning: cube + 3D figures — 20 Qs (1 hr)</span></label>
+        <label class="task-item"><input type="checkbox" id="t55"><span>Current affairs compilation — June so far (30 min)</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Sun Jun 22</div>
+        <label class="task-item"><input type="checkbox" id="t56"><span>Numerical: Full blitz — %, ratio, avg, P&L, S.I., time-work — 60 Qs total (2 hrs)</span></label>
+        <label class="task-item"><input type="checkbox" id="t57"><span>GA: Science — basic Chemistry + Biology (IAF-relevant topics) (1.5 hrs)</span></label>
+        <label class="task-item"><input type="checkbox" id="t58"><span>Vocabulary: 80-word rapid revision from all weeks (1.5 hrs)</span></label>
+        <label class="task-item"><input type="checkbox" id="t59"><span>Weak area from mock test — targeted drill on top 3 problem topics (2 hrs)</span></label>
+    </div>
+
+    <h2>PHASE 2 — SUBJECT DEEP DIVE (Week 3–5: Jun 23 – Jul 13)</h2>
+
+    <div class="day-block">
+        <div class="day-title">Mon Jun 23</div>
+        <label class="task-item"><input type="checkbox" id="t60"><span>Reasoning: Embedded figures + figure series — 25 Qs each</span></label>
+        <label class="task-item"><input type="checkbox" id="t61"><span>GA: Sports awards + achievements 2025–26</span></label>
+        <label class="task-item"><input type="checkbox" id="t62"><span>Verbal: Synonyms/antonyms speed — 40 new words</span></label>
+        <label class="task-item"><input type="checkbox" id="t63"><span>Current affairs daily</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Tue Jun 24</div>
+        <label class="task-item"><input type="checkbox" id="t64"><span>Reasoning: Matrix arrangement + sitting arrangement — 20 Qs each</span></label>
+        <label class="task-item"><input type="checkbox" id="t65"><span>GA: ISRO, DRDO, defence tech — space missions 2025–26</span></label>
+        <label class="task-item"><input type="checkbox" id="t66"><span>Numerical: Distance-speed-time — 25 Qs</span></label>
+        <label class="task-item"><input type="checkbox" id="t67"><span>Current affairs</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Wed Jun 25</div>
+        <label class="task-item"><input type="checkbox" id="t68"><span>Reasoning: Timed section practice — 32 Qs in 30 min</span></label>
+        <label class="task-item"><input type="checkbox" id="t69"><span>Score: target 18+ correct</span></label>
+        <label class="task-item"><input type="checkbox" id="t70"><span>GA: Indian Economy basics — GDP, RBI policy, key indices</span></label>
+        <label class="task-item"><input type="checkbox" id="t71"><span>Verbal: RC — 2 passages full</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Thu Jun 26</div>
+        <label class="task-item"><input type="checkbox" id="t72"><span>Reasoning: Repeat timed practice — 32 Qs in 30 min</span></label>
+        <label class="task-item"><input type="checkbox" id="t73"><span>Target: improve on Wednesday's score</span></label>
+        <label class="task-item"><input type="checkbox" id="t74"><span>GA: Books + authors + inventions — key list</span></label>
+        <label class="task-item"><input type="checkbox" id="t75"><span>Verbal: 25 Qs mixed section practice</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Fri Jun 27</div>
+        <label class="task-item"><input type="checkbox" id="t76"><span>GA: Current affairs — defence acquisitions India 2025–26 (Rafale, Tejas, etc.)</span></label>
+        <label class="task-item"><input type="checkbox" id="t77"><span>Verbal: Full section timed — 25 Qs in 22 min</span></label>
+        <label class="task-item"><input type="checkbox" id="t78"><span>Reasoning: Weak topic re-drill from error log</span></label>
+        <label class="task-item"><input type="checkbox" id="t79"><span>Update error log — all topics from week 3</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Sat Jun 28</div>
+        <label class="task-item"><input type="checkbox" id="t80"><span>Full mock test #3 (strict 2 hrs)</span></label>
+        <label class="task-item"><input type="checkbox" id="t81"><span>Target: 120+ marks</span></label>
+        <label class="task-item"><input type="checkbox" id="t82"><span>Full analysis (2 hrs)</span></label>
+        <label class="task-item"><input type="checkbox" id="t83"><span>Spatial reasoning difficult set (1 hr)</span></label>
+        <label class="task-item"><input type="checkbox" id="t84"><span>Current affairs 30 min</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Sun Jun 29</div>
+        <label class="task-item"><input type="checkbox" id="t85"><span>GA: IAF deep dive — squadrons, aircraft (Su-30MKI, MiG-21, Tejas, Rafale, Apache, Chinook), ranks, commands (3 hrs)</span></label>
+        <label class="task-item"><input type="checkbox" id="t86"><span>Verbal: 3 sets of 25 Qs each — timed (2 hrs)</span></label>
+        <label class="task-item"><input type="checkbox" id="t87"><span>Reasoning: Full revision all topics covered — 60 Qs mixed (2 hrs)</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Mon Jun 30</div>
+        <label class="task-item"><input type="checkbox" id="t88"><span>Verbal: Spellings + commonly confused words — 30 Qs</span></label>
+        <label class="task-item"><input type="checkbox" id="t89"><span>GA: World Geography — countries, capitals, major oceans, straits</span></label>
+        <label class="task-item"><input type="checkbox" id="t90"><span>Reasoning: 15 Qs daily maintenance</span></label>
+        <label class="task-item"><input type="checkbox" id="t91"><span>Numerical: Mixture + alligation — 15 Qs</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Tue Jul 1</div>
+        <label class="task-item"><input type="checkbox" id="t92"><span>Verbal: Active/passive + direct/indirect — 25 Qs</span></label>
+        <label class="task-item"><input type="checkbox" id="t93"><span>GA: Environment + ecology — national parks, biosphere reserves</span></label>
+        <label class="task-item"><input type="checkbox" id="t94"><span>Reasoning: 15 Qs daily</span></label>
+        <label class="task-item"><input type="checkbox" id="t95"><span>Current affairs: June full-month rapid revision</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Wed Jul 2</div>
+        <label class="task-item"><input type="checkbox" id="t96"><span>Verbal: Full timed section — 25 Qs in 22 min</span></label>
+        <label class="task-item"><input type="checkbox" id="t97"><span>Score and analyze</span></label>
+        <label class="task-item"><input type="checkbox" id="t98"><span>GA: Basic Physics — optics, electricity, magnetism (IAF MCQ types)</span></label>
+        <label class="task-item"><input type="checkbox" id="t99"><span>Reasoning: 15 Qs daily</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Thu Jul 3</div>
+        <label class="task-item"><input type="checkbox" id="t100"><span>Verbal: Second timed section — identify recurring errors</span></label>
+        <label class="task-item"><input type="checkbox" id="t101"><span>GA: Basic Chemistry + Biology — IAF-tested topics</span></label>
+        <label class="task-item"><input type="checkbox" id="t102"><span>Reasoning: 15 Qs daily</span></label>
+        <label class="task-item"><input type="checkbox" id="t103"><span>Numerical: Percentage + profit full revision — 30 Qs</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Fri Jul 4</div>
+        <label class="task-item"><input type="checkbox" id="t104"><span>GA: International organisations — UN, NATO, WHO, SCO, QUAD, BRICS</span></label>
+        <label class="task-item"><input type="checkbox" id="t105"><span>Verbal: Mixed practice 25 Qs</span></label>
+        <label class="task-item"><input type="checkbox" id="t106"><span>Reasoning: 15 Qs daily</span></label>
+        <label class="task-item"><input type="checkbox" id="t107"><span>Error log review — all 4 weeks' recurring mistakes listed</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Sat Jul 5</div>
+        <label class="task-item"><input type="checkbox" id="t108"><span>Full mock test #4 (strict 2 hrs)</span></label>
+        <label class="task-item"><input type="checkbox" id="t109"><span>Target: 125+ marks</span></label>
+        <label class="task-item"><input type="checkbox" id="t110"><span>Analysis focus: GA wrong answers — are they knowledge gaps or careless?</span></label>
+        <label class="task-item"><input type="checkbox" id="t111"><span>GA blitz: Inventions + first in India + world records — 2 hrs</span></label>
+        <label class="task-item"><input type="checkbox" id="t112"><span>Current affairs 30 min</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Sun Jul 6</div>
+        <label class="task-item"><input type="checkbox" id="t113"><span>Vocabulary master revision — all 300+ words from all weeks (3 hrs)</span></label>
+        <label class="task-item"><input type="checkbox" id="t114"><span>GA: Polity deep dive — Parliament, judiciary, executive, key articles (2 hrs)</span></label>
+        <label class="task-item"><input type="checkbox" id="t115"><span>Mixed practice — 50 Qs, all sections, timed 50 min (2 hrs)</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Mon Jul 7</div>
+        <label class="task-item"><input type="checkbox" id="t116"><span>Numerical: LCM, HCF, number system — 30 Qs</span></label>
+        <label class="task-item"><input type="checkbox" id="t117"><span>GA: Current affairs July 1st week</span></label>
+        <label class="task-item"><input type="checkbox" id="t118"><span>Reasoning: 15 Qs daily</span></label>
+        <label class="task-item"><input type="checkbox" id="t119"><span>Verbal: 20 Qs mixed</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Tue Jul 8</div>
+        <label class="task-item"><input type="checkbox" id="t120"><span>Numerical: Simplification + BODMAS — 25 Qs</span></label>
+        <label class="task-item"><input type="checkbox" id="t121"><span>GA: Indian Economy + Union Budget 2026 highlights</span></label>
+        <label class="task-item"><input type="checkbox" id="t122"><span>Reasoning: 15 Qs daily</span></label>
+        <label class="task-item"><input type="checkbox" id="t123"><span>Verbal: 20 Qs mixed</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Wed Jul 9</div>
+        <label class="task-item"><input type="checkbox" id="t124"><span>Numerical: Ages + averages — 20 Qs</span></label>
+        <label class="task-item"><input type="checkbox" id="t125"><span>GA: Defence news — India's military acquisitions + ops 2026</span></label>
+        <label class="task-item"><input type="checkbox" id="t126"><span>Reasoning: 15 Qs daily</span></label>
+        <label class="task-item"><input type="checkbox" id="t127"><span>Verbal: 20 Qs mixed</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Thu Jul 10</div>
+        <label class="task-item"><input type="checkbox" id="t128"><span>Numerical: Full timed section — 18 Qs in 18 min</span></label>
+        <label class="task-item"><input type="checkbox" id="t129"><span>Score: target 9+ correct</span></label>
+        <label class="task-item"><input type="checkbox" id="t130"><span>GA: Science + Tech 2026 update — key launches, policies</span></label>
+        <label class="task-item"><input type="checkbox" id="t131"><span>Verbal: Full timed section — 25 Qs in 22 min</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Fri Jul 11</div>
+        <label class="task-item"><input type="checkbox" id="t132"><span>Numerical: Repeat timed section — different question set</span></label>
+        <label class="task-item"><input type="checkbox" id="t133"><span>GA: Current affairs July 2nd week</span></label>
+        <label class="task-item"><input type="checkbox" id="t134"><span>Error log complete review — all 5 weeks</span></label>
+        <label class="task-item"><input type="checkbox" id="t135"><span>Make 1-page cheat sheet: GA facts + vocab + formulas</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Sat Jul 12</div>
+        <label class="task-item"><input type="checkbox" id="t136"><span>AFCAT PYQ 2022 — full paper, strict 2-hr timer</span></label>
+        <label class="task-item"><input type="checkbox" id="t137"><span>Analysis + scoring (2 hrs)</span></label>
+        <label class="task-item"><input type="checkbox" id="t138"><span>Full numerical revision — all 8 topics (2 hrs)</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Sun Jul 13</div>
+        <label class="task-item"><input type="checkbox" id="t139"><span>Mixed 50 Qs — timed 50 min (2 hrs)</span></label>
+        <label class="task-item"><input type="checkbox" id="t140"><span>GA: Full revision from all notes (2 hrs)</span></label>
+        <label class="task-item"><input type="checkbox" id="t141"><span>Identify top 10 weakest topics across all sections — targeted drill (3 hrs)</span></label>
+    </div>
+
+    <h2>PHASE 3 — MOCK TEST MODE (Week 6–7: Jul 14–27)</h2>
+    <blockquote>No new topics from here. Only mocks, analysis, and revision.</blockquote>
+
+    <div class="day-block">
+        <div class="day-title">Mon Jul 14</div>
+        <label class="task-item"><input type="checkbox" id="t142"><span>Reasoning: 32 Qs timed — 30 min</span></label>
+        <label class="task-item"><input type="checkbox" id="t143"><span>Verbal: 25 Qs timed — 22 min</span></label>
+        <label class="task-item"><input type="checkbox" id="t144"><span>GA: Current affairs July 2nd week</span></label>
+        <label class="task-item"><input type="checkbox" id="t145"><span>Pick 5 weakest topics from error log — drill them</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Tue Jul 15</div>
+        <label class="task-item"><input type="checkbox" id="t146"><span>Numerical: 18 Qs timed — 18 min</span></label>
+        <label class="task-item"><input type="checkbox" id="t147"><span>GA: Static GK rapid revision — Polity, History, Geography</span></label>
+        <label class="task-item"><input type="checkbox" id="t148"><span>Vocabulary: 50 words speed recall — 15 min</span></label>
+        <label class="task-item"><input type="checkbox" id="t149"><span>Spatial reasoning: 20 Qs</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Wed Jul 16</div>
+        <label class="task-item"><input type="checkbox" id="t150"><span>Mixed 50 Qs — all sections, timed 50 min</span></label>
+        <label class="task-item"><input type="checkbox" id="t151"><span>Score check: should be 44+ correct to comfortably hit 132</span></label>
+        <label class="task-item"><input type="checkbox" id="t152"><span>Weak topic drill — 30 min</span></label>
+        <label class="task-item"><input type="checkbox" id="t153"><span>Current affairs daily</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Thu Jul 17</div>
+        <label class="task-item"><input type="checkbox" id="t154"><span>GA: Defence acquisitions + military ops 2025–26 focused revision</span></label>
+        <label class="task-item"><input type="checkbox" id="t155"><span>Reasoning: Full section timed</span></label>
+        <label class="task-item"><input type="checkbox" id="t156"><span>Verbal: Error detection + cloze test — 20 Qs each</span></label>
+        <label class="task-item"><input type="checkbox" id="t157"><span>Numerical: Weak topic drill</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Fri Jul 18</div>
+        <label class="task-item"><input type="checkbox" id="t158"><span>Verbal: Full section timed + analysis</span></label>
+        <label class="task-item"><input type="checkbox" id="t159"><span>GA: Last 1 month current affairs rapid revision</span></label>
+        <label class="task-item"><input type="checkbox" id="t160"><span>Update 1-page cheat sheet with any missed facts</span></label>
+        <label class="task-item"><input type="checkbox" id="t161"><span>8 hrs sleep — start sleep discipline now</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Sat Jul 19</div>
+        <label class="task-item"><input type="checkbox" id="t162"><span>Full mock #5 — strict 2-hr timer</span></label>
+        <label class="task-item"><input type="checkbox" id="t163"><span>Target: 130+ marks</span></label>
+        <label class="task-item"><input type="checkbox" id="t164"><span>Detailed section analysis (2 hrs)</span></label>
+        <label class="task-item"><input type="checkbox" id="t165"><span>Weak area focused drill from analysis (1 hr)</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Sun Jul 20</div>
+        <label class="task-item"><input type="checkbox" id="t166"><span>Full mock #6 — strict 2-hr timer</span></label>
+        <label class="task-item"><input type="checkbox" id="t167"><span>Target: 132+ marks (your target score)</span></label>
+        <label class="task-item"><input type="checkbox" id="t168"><span>Analysis — if target not met, note exact gaps</span></label>
+        <label class="task-item"><input type="checkbox" id="t169"><span>Current affairs June + July compilation revision (2 hrs)</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Mon Jul 21</div>
+        <label class="task-item"><input type="checkbox" id="t170"><span>PYQ 2025 full paper — strict 2 hrs</span></label>
+        <label class="task-item"><input type="checkbox" id="t171"><span>Compare with earlier attempts — note improvement trend</span></label>
+        <label class="task-item"><input type="checkbox" id="t172"><span>GA: IAF ranks, insignia, appointments 2026</span></label>
+        <label class="task-item"><input type="checkbox" id="t173"><span>Current affairs daily</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Tue Jul 22</div>
+        <label class="task-item"><input type="checkbox" id="t174"><span>Reasoning: 32 Qs — target 20+ correct</span></label>
+        <label class="task-item"><input type="checkbox" id="t175"><span>Numerical: 18 Qs — target 10+ correct</span></label>
+        <label class="task-item"><input type="checkbox" id="t176"><span>GA: Current affairs July 3rd week</span></label>
+        <label class="task-item"><input type="checkbox" id="t177"><span>Final error log review — last time</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Wed Jul 23</div>
+        <label class="task-item"><input type="checkbox" id="t178"><span>Full mock #7</span></label>
+        <label class="task-item"><input type="checkbox" id="t179"><span>Target: 140+ marks</span></label>
+        <label class="task-item"><input type="checkbox" id="t180"><span>Focus on smart skipping — don't attempt uncertain Qs</span></label>
+        <label class="task-item"><input type="checkbox" id="t181"><span>Current affairs</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Thu Jul 24</div>
+        <label class="task-item"><input type="checkbox" id="t182"><span>Vocabulary final blitz — 200+ words rapid recall</span></label>
+        <label class="task-item"><input type="checkbox" id="t183"><span>Reasoning: 30 Qs timed</span></label>
+        <label class="task-item"><input type="checkbox" id="t184"><span>Numerical: 18 Qs timed</span></label>
+        <label class="task-item"><input type="checkbox" id="t185"><span>Cheat sheet update — add any last items</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Fri Jul 25</div>
+        <label class="task-item"><input type="checkbox" id="t186"><span>Full mock #8 — last full-length mock</span></label>
+        <label class="task-item"><input type="checkbox" id="t187"><span>Target: 140+ consistently</span></label>
+        <label class="task-item"><input type="checkbox" id="t188"><span>Note 3 weak spots max — only these to revisit going forward</span></label>
+        <label class="task-item"><input type="checkbox" id="t189"><span>8 hrs sleep</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Sat Jul 26</div>
+        <label class="task-item"><input type="checkbox" id="t190"><span>Full mock #9 (no pause, strict rules — simulate real exam)</span></label>
+        <label class="task-item"><input type="checkbox" id="t191"><span>Final mock analysis</span></label>
+        <label class="task-item"><input type="checkbox" id="t192"><span>Current affairs June + July — 2-hr rapid revision</span></label>
+        <label class="task-item"><input type="checkbox" id="t193"><span>Finalize 1-page cheat sheet — lock it, no more additions</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Sun Jul 27</div>
+        <label class="task-item"><input type="checkbox" id="t194"><span>Read 1-page cheat sheet</span></label>
+        <label class="task-item"><input type="checkbox" id="t195"><span>Verbal: 30 Qs final practice</span></label>
+        <label class="task-item"><input type="checkbox" id="t196"><span>Reasoning: 32 Qs final practice</span></label>
+        <label class="task-item"><input type="checkbox" id="t197"><span>Numerical: 18 Qs final practice</span></label>
+        <label class="task-item"><input type="checkbox" id="t198"><span>No new topics from today onwards</span></label>
+    </div>
+
+    <h2>PHASE 4 — FINAL SPRINT (Jul 28 – Aug 8)</h2>
+
+    <div class="day-block">
+        <div class="day-title">Mon Jul 28 – Thu Jul 31 (Each day)</div>
+        <label class="task-item"><input type="checkbox" id="t199"><span>Read cheat sheet (15 min)</span></label>
+        <label class="task-item"><input type="checkbox" id="t200"><span>20 Qs mixed revision practice</span></label>
+        <label class="task-item"><input type="checkbox" id="t201"><span>Current affairs (30 min)</span></label>
+        <label class="task-item"><input type="checkbox" id="t202"><span>GA: Key facts rapid fire from notes</span></label>
+        <label class="task-item"><input type="checkbox" id="t203"><span>8 hrs sleep</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Fri Aug 1 – Sun Aug 3</div>
+        <label class="task-item"><input type="checkbox" id="t204"><span>Cheat sheet read (15 min each day)</span></label>
+        <label class="task-item"><input type="checkbox" id="t205"><span>Current affairs August 1st week</span></label>
+        <label class="task-item"><input type="checkbox" id="t206"><span>Light 20 Qs practice only</span></label>
+        <label class="task-item"><input type="checkbox" id="t207"><span>Physical activity — walk/run daily (clears stress)</span></label>
+        <label class="task-item"><input type="checkbox" id="t208"><span>9 hrs sleep each night</span></label>
+    </div>
+
+    <div class="day-block">
+        <div class="day-title">Mon Aug 4 – Fri Aug 8 (final 5 days)</div>
+        <label class="task-item"><input type="checkbox" id="t209"><span>Cheat sheet read every morning — nothing else</span></label>
+        <label class="task-item"><input type="checkbox" id="t210"><span>No practice papers</span></label>
+        <label class="task-item"><input type="checkbox" id="t211"><span>Check admit card + photo ID + exam center location + route</span></label>
+        <label class="task-item"><input type="checkbox" id="t212"><span>Headlines-only current affairs</span></label>
+        <label class="task-item"><input type="checkbox" id="t213"><span>9 hrs sleep every night</span></label>
+        <label class="task-item"><input type="checkbox" id="t214"><span>Eat well, no junk</span></label>
+    </div>
+
+    <h2>EXAM DAY — Sun Aug 9</h2>
+    <div class="day-block">
+        <label class="task-item"><input type="checkbox" id="t215"><span>Wake up 5:30 AM</span></label>
+        <label class="task-item"><input type="checkbox" id="t216"><span>Light breakfast — don't skip</span></label>
+        <label class="task-item"><input type="checkbox" id="t217"><span>Reach center 1 hr before reporting time</span></label>
+        <label class="task-item"><input type="checkbox" id="t218"><span>Section order: Reasoning → Verbal → GA → Numerical</span></label>
+        <label class="task-item"><input type="checkbox" id="t219"><span>Time split: Reasoning 30 min | Verbal 22 min | GA 30 min | Numerical 20 min | Review 18 min</span></label>
+        <label class="task-item"><input type="checkbox" id="t220"><span>Skip rule: If unsure after 20 seconds → skip, come back later</span></label>
+        <label class="task-item"><input type="checkbox" id="t221"><span>Never guess randomly — −1 compounds fast</span></label>
+    </div>
+
+    <h2>RESOURCES (free/cheap)</h2>
+    <ul>
+        <li>Mocks: Testbook, PW (Physics Wallah), Gradeup — all have AFCAT-specific mocks</li>
+        <li>PYQs: Free PDFs on Telegram (search "AFCAT PYQ PDF")</li>
+        <li>Current affairs: PIB daily summary + Adda247 monthly PDF</li>
+        <li>Vocabulary: Wordweb app — 10 words/day habit</li>
+    </ul>
+
+    <h2>WEEKLY MOCK SCORE TRACKER</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Week</th>
+                <th>Mock #</th>
+                <th>Target</th>
+                <th>Actual Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>1</td><td>Baseline</td><td>—</td><td><input type="text" id="m1" class="input-score"></td></tr>
+            <tr><td>2</td><td>PYQ 2023</td><td>improvement</td><td><input type="text" id="m2" class="input-score"></td></tr>
+            <tr><td>3</td><td>Mock #3</td><td>120</td><td><input type="text" id="m3" class="input-score"></td></tr>
+            <tr><td>4</td><td>Mock #4</td><td>125</td><td><input type="text" id="m4" class="input-score"></td></tr>
+            <tr><td>5</td><td>PYQ 2022</td><td>128</td><td><input type="text" id="m5" class="input-score"></td></tr>
+            <tr><td>6</td><td>Mock #5 &amp; #6</td><td>130–132</td><td><input type="text" id="m6" class="input-score"></td></tr>
+            <tr><td>7</td><td>Mock #7–#9</td><td>140+</td><td><input type="text" id="m7" class="input-score"></td></tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    const checkboxes = document.querySelectorAll('.task-item input');
+    const scoreInputs = document.querySelectorAll('.input-score');
+
+    function updateProgress() {
+        const total = checkboxes.length;
+        const checked = document.querySelectorAll('.task-item input:checked').length;
+        const percentage = total > 0 ? Math.round((checked / total) * 100) : 0;
+        
+        document.getElementById('progress-fill').style.width = percentage + '%';
+        document.getElementById('progress-text').innerText = percentage + '%';
+    }
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', (e) => {
+            const item = e.target.parentElement;
+            if (e.target.checked) {
+                item.classList.add('completed');
+            } else {
+                item.classList.remove('completed');
+            }
+            localStorage.setItem(e.target.id, e.target.checked);
+            updateProgress();
+        });
+
+        // Load state
+        const savedState = localStorage.getItem(checkbox.id);
+        if (savedState === 'true') {
+            checkbox.checked = true;
+            checkbox.parentElement.classList.add('completed');
+        }
+    });
+
+    scoreInputs.forEach(input => {
+        input.addEventListener('input', (e) => {
+            localStorage.setItem(e.target.id, e.target.value);
+        });
+
+        // Load score state
+        const savedScore = localStorage.getItem(input.id);
+        if (savedScore) {
+            input.value = savedScore;
+        }
+    });
+
+    updateProgress();
+</script>
+</body>
+</html>
